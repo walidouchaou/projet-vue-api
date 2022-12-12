@@ -3,34 +3,51 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>commits-example</title>
+		<title>films populaires</title>
 		<style>
-			#demo {
-				font-family: "Helvetica", Arial, sans-serif;
+			h1{
+				color: green;
 			}
-			a {
-				text-decoration: none;
-				color: #f66;
-			}
-			li {
-				line-height: 1.5em;
-				margin-bottom: 20px;
-			}
-			.author,
-			.date {
-				font-weight: bold;
-			}
+			
 		</style>
 	</head>
 	<body>
 		<div id="demo">
 			<!-- <pre>{{commits}}</pre> -->
-			<h1>les meileur filme de l'anner </h1>
-			
+			<h1>les meilleurs films de l'année </h1>
+		
 		
 			<ul>
 				<li v-for="movie in movies">
-					{{movie.original_title}}
+					
+					<div class="container">
+						<div class="cellphone-container">    
+							<div class="movie">       
+							  <div class="text-movie-cont">
+								<div class="mr-grid">
+								  <div class="col1">
+									<h1>{{movie.original_title}}</h1>
+									<ul class="movie-gen">
+									  <li> langue : {{movie.original_language}}</li>
+									  <li>date de sortie : {{movie.release_date}}  </li>
+									  <li> la note : {{movie.vote_average}}</li>
+									</ul>
+								  </div>
+								</div>
+								
+								<div class="mr-grid">
+								  <div class="col1">
+
+									<p class="movie-description"><strong>Resumer</strong> : {{movie.overview}} </p>
+								  </div>
+								</div>
+								
+						
+							  </div>
+							</div>
+						</div>
+					  </div>
+					
 				</li>
 			</ul>
 		</div>
