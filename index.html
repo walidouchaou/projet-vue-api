@@ -1,12 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    teste 
-</body>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>commits-example</title>
+		<style>
+			#demo {
+				font-family: "Helvetica", Arial, sans-serif;
+			}
+			a {
+				text-decoration: none;
+				color: #f66;
+			}
+			li {
+				line-height: 1.5em;
+				margin-bottom: 20px;
+			}
+			.author,
+			.date {
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="demo">
+			<!-- <pre>{{commits}}</pre> -->
+			<h1>les meileur filme de l'anner </h1>
+			
+		
+			<ul>
+				<li v-for="movie in movies">
+					{{movie.original_title}}
+				</li>
+			</ul>
+		</div>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script src="https://unpkg.com/vue@3"></script>
+		<script>
+			const apiURL =
+            "https://api.themoviedb.org/3/movie/popular?api_key=a8259c59f49d490bc078f6c196279508";
+			const config = {
+			};
+
+			Vue.createApp({
+				data() {
+					return {
+						movies: null 
+					};
+				},
+
+				created: function () {
+					 this.fetchDataAsync()
+				},
+
+				methods: {
+				
+					fetchDataAsync: async function () {
+					 	try {
+					   	const response = await axios.get(apiURL , config)
+					 	  console.log(response.data)
+					 	  this.movies = response.data.results
+					         // console.log(self.commits[0].html_url);
+					   } catch(error) {
+					     console.log(error);
+					   }
+					 },
+				
+				},
+			}).mount("#demo");
+		</script>
+	</body>
 </html>
