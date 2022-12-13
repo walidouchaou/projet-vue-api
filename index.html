@@ -11,7 +11,15 @@
 		<div id="demo">
 		
 			<h1 class="text-5xl font-extrabold dark:text-white text-center pb-10 pt-10">les meilleurs films de l'année </h1>
-		
+			<form action="" method="get" class="form">
+				<div class="form">
+				  <label for="search">Rechercher un film </label>
+				  <input type="text" name="search" id="search" required>
+				</div>
+				<div class="form">
+				  <button type="submit">Rechercher</button>
+				</div>
+			  </form>
 			
 					
 					<div class="grid gap-4 grid-cols-2 grid-rows-3">
@@ -64,11 +72,24 @@
 				methods: {
 				
 					fetchDataAsync: async function () {
-					 	try {
-					   	const response = await axios.get(apiURL , config)
-					 	  console.log(response.data)
-					 	  this.movies = response.data.results
-					         // console.log(self.commits[0].html_url);
+						try {
+
+							if (window.location.search.substr(7) !== "")
+							{
+							   const query = "&query=" + window.location.search.substr(7)
+							   const apiURL1 = "https://api.themoviedb.org/3/search/movie?api_key=a8259c59f49d490bc078f6c196279508" + query
+							   const response = await axios.get(apiURL1 , config)
+							   console.log(response.data)
+							   this.movies = response.data.results
+								  console.log(test);
+							}
+							else{
+							   const response = await axios.get(apiURL , config)
+							   console.log(response.data)
+							   this.movies = response.data.results
+								  console.log(test);
+							}
+							
 					   } catch(error) {
 					     console.log(error);
 					   }
