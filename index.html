@@ -3,11 +3,10 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
 		<title>films populaires</title>
 		<style>
-			h1{
-				color: green;
-			}
+			
 			
 		</style>
 	</head>
@@ -20,32 +19,16 @@
 			<ul>
 				<li v-for="movie in movies">
 					
-					<div class="container">
-						<div class="cellphone-container">    
-							<div class="movie">       
-							  <div class="text-movie-cont">
-								<div class="mr-grid">
-								  <div class="col1">
-									<h1>{{movie.original_title}}</h1>
-									<ul class="movie-gen">
-									  <li> langue : {{movie.original_language}}</li>
-									  <li>date de sortie : {{movie.release_date}}  </li>
-									  <li> la note : {{movie.vote_average}}</li>
-									</ul>
-								  </div>
+					<div class="grid gap-4 grid-cols-2 grid-rows-3">
+						<div v-for="movie in movies">    
+							<a href="#" class="flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+								<img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" :src="`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`" alt="">
+								<div class="flex flex-col justify-between p-4 leading-normal">
+									<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{movie.original_title}}</h5>
+									<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{movie.overview}}</p>
 								</div>
-								
-								<div class="mr-grid">
-								  <div class="col1">
-
-									<p class="movie-description"><strong>Resumer</strong> : {{movie.overview}} </p>
-								  </div>
-								</div>
-								
-						
-							  </div>
-							</div>
-						</div>
+							</a>
+							
 					  </div>
 					
 				</li>
@@ -53,6 +36,8 @@
 		</div>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="https://unpkg.com/vue@3"></script>
+		<script src="https://cdn.tailwindcss.com/%22%3E"></script>
+			<script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js%22%3E"></script>
 		<script>
 			const apiURL =
             "https://api.themoviedb.org/3/movie/popular?api_key=a8259c59f49d490bc078f6c196279508";
@@ -85,6 +70,16 @@
 				
 				},
 			}).mount("#demo");
+
+			tailwind.config = {
+				theme: {
+				  extend: {
+					colors: {
+					  clifford: '#da373d',
+					}
+				  }
+				}
+			  }
 		</script>
 	</body>
 </html>
