@@ -12,10 +12,9 @@
 		
 			<h1 class="text-5xl font-extrabold dark:text-white text-center pb-10 pt-10">les meilleurs films de l'année </h1>
 
-			<form v-on:submit="doSearch">
-				<input type="text" v-model="search" placeholder="Rechercher un film ..." >
-				<button type="submit">Rechercher</button>
-			</form>
+		
+				<input type="text" v-model="search" @keyup.enter="fetchDataAsync" placeholder="Rechercher un film ..." >
+			
 
 					<div class="grid gap-4 grid-cols-2 grid-rows-3">
 						<div v-for="movie in movies">    
@@ -66,10 +65,6 @@
 				},
 
 				methods: {
-					doSearch(e){
-						e.preventDefault() 
-						this.fetchDataAsync()
-					},
 					fetchDataAsync: async function () {
 						try {
 
