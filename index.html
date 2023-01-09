@@ -3,14 +3,20 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css" />
-		<title>films populaires</title>
+		<link rel="stylesheet" href="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.css" />
+		<title>Films populaires</title>
 		
 	</head>
-	<body>
+	<body class="m-5 bg-white dark:bg-gray-900">
 		<div id="demo">
 		
 			<h1 class="text-5xl font-extrabold dark:text-white text-center pb-10 pt-10">les meilleurs films de l'année </h1>
+			<div>
+					<button @click="toggleDark(!isDark)" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+						<svg v-if="isDark === true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+						<svg v-if="isDark === false" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+					</button>
+			</div>
 
 			<form v-on:submit="doSearch">
 				<input type="text" v-model="search" placeholder="Rechercher un film ..." >
@@ -26,28 +32,14 @@
 									<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{movie.overview}}</p>
 								</div>
 							</a>
-							
 					  </div>
-
-					  <footer class="fixed bottom-0 left-0 z-20 p-4 w-full bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
-						<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022
-						</span>
-						<ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-							<li>
-								<a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
-							</li>
-							<li>
-								<a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-							</li>
-							<li>
-					
 			
 		</div>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="https://unpkg.com/vue@3"></script>
-		<script src="https://cdn.tailwindcss.com/%22%3E"></script>
-			<script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js%22%3E"></script>
-		<script>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="https://unpkg.com/flowbite@1.6.0/dist/flowbite.min.js"></script>
+		<script>			
 			const apiURL =
             "https://api.themoviedb.org/3/movie/popular?api_key=a8259c59f49d490bc078f6c196279508";
 			const config = {
@@ -57,12 +49,13 @@
 				data() {
 					return {
 						search: "",
-						movies: null 
+						movies: null,
+						isDark: false
 					};
 				},
 
 				created: function () {
-					 this.fetchDataAsync()
+					this.fetchDataAsync()
 				},
 
 				methods: {
@@ -75,33 +68,41 @@
 
 							if (this.search !== "")
 							{
-							   const apiURL1 = "https://api.themoviedb.org/3/search/movie?api_key=a8259c59f49d490bc078f6c196279508&query=" + this.search
-							   const response = await axios.get(apiURL1 , config)
-							   console.log(response.data)
-							   this.movies = response.data.results
+								const apiURL1 = "https://api.themoviedb.org/3/search/movie?api_key=a8259c59f49d490bc078f6c196279508&query=" + this.search
+								const response = await axios.get(apiURL1 , config)
+								this.movies = response.data.results
 							} else{
-							   const response = await axios.get(apiURL , config)
-							   console.log(response.data)
-							   this.movies = response.data.results
+								const response = await axios.get(apiURL , config)
+								this.movies = response.data.results
 							}
 							
-					   } catch(error) {
-					     console.log(error);
-					   }
-					 },
-				
+						} catch(error) {
+							console.log(error);
+						}
+					},
+					toggleDark(payload) {
+						this.isDark = payload
+						
+						if (this.isDark === true) {
+							document.documentElement.classList.add('dark')
+						} else {
+							document.documentElement.classList.remove('dark')
+						}
+					}
 				},
 			}).mount("#demo");
+			
+			document.getElementById("year").innerHTML = new Date().getFullYear();
 
 			tailwind.config = {
-				theme: {
-				  extend: {
-					colors: {
-					  clifford: '#da373d',
-					}
-				  }
-				}
-			  }
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
 		</script>
 	</body>
 </html>
